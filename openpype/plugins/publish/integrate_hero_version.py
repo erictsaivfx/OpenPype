@@ -203,6 +203,10 @@ class IntegrateHeroVersion(pyblish.api.InstancePlugin):
 
         if old_version:
             self.log.debug("Replacing old hero version.")
+            self.log.debug(("old_version \"{}\"").format(old_version))
+            self.log.debug(("old_version[type] \"{}\"").format(old_version["type"]))
+            self.log.debug(("new_hero_version \"{}\"").format(new_hero_version))
+            self.log.debug(("new_hero_version[type] \"{}\"").format(new_hero_version["type"]))
             update_data = prepare_hero_version_update_data(
                 old_version, new_hero_version
             )
@@ -231,6 +235,11 @@ class IntegrateHeroVersion(pyblish.api.InstancePlugin):
 
         if old_repres_by_name:
             old_repres_to_delete = old_repres_by_name
+
+        # debug to keep different representations
+        self.log.debug(("replace \"{}\"").format(old_repres_to_replace))
+        self.log.debug(("delete \"{}\"").format(old_repres_to_delete))
+
 
         archived_repres = list(get_archived_representations(
             project_name,
@@ -475,10 +484,21 @@ class IntegrateHeroVersion(pyblish.api.InstancePlugin):
             op_session.commit()
 
             # Remove backuped previous hero
+            # Modified to keep different representations
+            # TODO need to check collection logic for different representations
             if (
                 backup_hero_publish_dir is not None and
                 os.path.exists(backup_hero_publish_dir)
             ):
+                onlyfiles = [f for f in os.listdir(backup_hero_publish_dir) if os.path.isfile(os.path.join(backup_hero_publish_dir,f))]
+                hero_publish_dir
+                for tmp_file in onlyfiles:
+                    tmp_dst_path = os.path.join(hero_publish_dir,tmp_file)
+                    if not os.path.isfile(tmp_dst_path):
+                        tmp_src_path = os.path.join(backup_hero_publish_dir,tmp_file)
+                        shutil.copy(tmp_src_path, tmp_dst_path)
+                        self.log.debug(("copied file \"{}\" to \"{}\"").format(tmp_src_path,tmp_dst_path))
+
                 shutil.rmtree(backup_hero_publish_dir)
 
         except Exception:

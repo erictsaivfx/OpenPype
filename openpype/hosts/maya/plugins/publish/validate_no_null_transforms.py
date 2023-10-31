@@ -44,6 +44,7 @@ class ValidateNoNullTransforms(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['model']
     label = 'No Empty/Null Transforms'
+    optional = True
     actions = [RepairAction,
                openpype.hosts.maya.api.action.SelectInvalidAction]
 

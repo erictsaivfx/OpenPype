@@ -18,6 +18,7 @@ class ExtractObj(publish.Extractor):
     hosts = ["maya"]
     label = "Extract OBJ"
     families = ["model"]
+    optional = True
 
     def process(self, instance):
 

@@ -25,6 +25,7 @@ class ExtractAlembic(publish.Extractor):
     hosts = ["maya"]
     families = ["pointcache", "model", "vrayproxy.alembic"]
     targets = ["local", "remote"]
+    optional = True
 
     def process(self, instance):
         if instance.data.get("farm"):

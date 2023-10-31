@@ -19,7 +19,9 @@ class ExtractFBX(publish.Extractor):
     """
     order = pyblish.api.ExtractorOrder
     label = "Extract FBX"
+    hosts = ["maya"]
     families = ["fbx"]
+    optional = True
 
     def process(self, instance):
         fbx_exporter = fbx.FBXExtractor(log=self.log)
