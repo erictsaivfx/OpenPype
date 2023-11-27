@@ -19,7 +19,7 @@ class ValidateNodeIdsUnique(pyblish.api.InstancePlugin):
                 "look",
                 "rig",
                 "yetiRig"]
-
+    optional = True
     actions = [openpype.hosts.maya.api.action.SelectInvalidAction,
                openpype.hosts.maya.api.action.GenerateUUIDsOnInvalidAction]
 
