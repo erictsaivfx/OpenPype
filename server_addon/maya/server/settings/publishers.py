@@ -279,6 +279,7 @@ class ValidateCameraContentsModel(BaseSettingsModel):
 
 class ExtractProxyAlembicModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
+    optional: bool = Field(title="Optional")
     families: list[str] = Field(
         default_factory=list,
         title="Families")
@@ -286,11 +287,19 @@ class ExtractProxyAlembicModel(BaseSettingsModel):
 
 class ExtractAlembicModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
+    optional: bool = Field(title="Optional")
     families: list[str] = Field(
         default_factory=list,
         title="Families")
 
 
+class ExtractFbxModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    families: list[str] = Field(
+        default_factory=list,
+        title="Families")
+
+    
 class ExtractObjModel(BaseSettingsModel):
     enabled: bool = Field(title="Enabled")
     optional: bool = Field(title="Optional")
@@ -635,6 +644,10 @@ class PublishersModel(BaseSettingsModel):
     ExtractAlembic: ExtractAlembicModel = Field(
         default_factory=ExtractAlembicModel,
         title="Extract Alembic",
+    )
+    ExtractFbx: ExtractFbxModel = Field(
+        default_factory=ExtractFbxModel,
+        title="Extract FBX"
     )
     ExtractObj: ExtractObjModel = Field(
         default_factory=ExtractObjModel,
@@ -1155,16 +1168,27 @@ DEFAULT_PUBLISH_SETTINGS = {
     },
     "ExtractProxyAlembic": {
         "enabled": False,
+        "optional": True,
         "families": [
             "proxyAbc"
         ]
     },
     "ExtractAlembic": {
-        "enabled": True,
+        "enabled": False,
+        "optional": True,
         "families": [
             "pointcache",
             "model",
             "vrayproxy.alembic"
+        ]
+    },
+    "ExtractFbx": {
+        "enabled": True,
+        "active": True,
+        "families": [
+            "model",
+            "vrayproxy.fbx",
+            "fbx"
         ]
     },
     "ExtractObj": {
