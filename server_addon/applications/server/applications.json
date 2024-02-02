@@ -1,5 +1,31 @@
 {
     "applications": {
+        "zbrush": {
+            "enabled": true,
+            "label": "ZBrush",
+            "icon": "{}/app_icons/zbrush.png",
+            "host_name": "zbrush",
+            "environment": "{}",
+            "variants": [
+                {
+                    "name": "2022",
+                    "label": "2022",
+                    "executables": {
+                        "windows": [
+                            "C:\\Program Files\\Pixologic\\ZBrush 2022\\ZBrush.exe"
+                        ],
+                        "darwin": [],
+                        "linux": []
+                    },
+                    "arguments": {
+                        "windows": [],
+                        "darwin": [],
+                        "linux": []
+                    },
+                    "environment": "{}"
+                }
+            ]
+        },
         "maya": {
             "enabled": true,
             "label": "Maya",

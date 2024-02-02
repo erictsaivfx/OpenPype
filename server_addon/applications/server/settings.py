@@ -146,6 +146,8 @@ class ToolGroupModel(BaseSettingsModel):
 class ApplicationsSettings(BaseSettingsModel):
     """Applications settings"""
 
+    zbrush: AppGroup = Field(
+        default_factory=AppGroupWithPython, title="ZBrush")
     maya: AppGroupWithPython = SettingsField(
         default_factory=AppGroupWithPython, title="Autodesk Maya")
     adsk_3dsmax: AppGroupWithPython = SettingsField(
