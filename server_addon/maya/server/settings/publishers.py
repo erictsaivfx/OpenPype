@@ -289,6 +289,7 @@ class ValidateCameraContentsModel(BaseSettingsModel):
 
 class ExtractProxyAlembicModel(BaseSettingsModel):
     enabled: bool = SettingsField(title="Enabled")
+    optional: bool = SettingsField(title="Optional")
     families: list[str] = SettingsField(
         default_factory=list,
         title="Families")
@@ -296,11 +297,19 @@ class ExtractProxyAlembicModel(BaseSettingsModel):
 
 class ExtractAlembicModel(BaseSettingsModel):
     enabled: bool = SettingsField(title="Enabled")
+    optional: bool = SettingsField(title="Optional")
     families: list[str] = SettingsField(
         default_factory=list,
         title="Families")
 
 
+class ExtractFbxModel(BaseSettingsModel):
+    enabled: bool = Field(title="Enabled")
+    families: list[str] = Field(
+        default_factory=list,
+        title="Families")
+
+    
 class ExtractObjModel(BaseSettingsModel):
     enabled: bool = SettingsField(title="Enabled")
     optional: bool = SettingsField(title="Optional")
@@ -659,6 +668,11 @@ class PublishersModel(BaseSettingsModel):
     ExtractAlembic: ExtractAlembicModel = SettingsField(
         default_factory=ExtractAlembicModel,
         title="Extract Alembic",
+    )
+
+    ExtractFbx: ExtractFbxModel = SettingsField(
+        default_factory=ExtractFbxModel,
+        title="Extract FBX"
     )
     ExtractObj: ExtractObjModel = SettingsField(
         default_factory=ExtractObjModel,
@@ -1183,16 +1197,27 @@ DEFAULT_PUBLISH_SETTINGS = {
     },
     "ExtractProxyAlembic": {
         "enabled": False,
+        "optional": True,
         "families": [
             "proxyAbc"
         ]
     },
     "ExtractAlembic": {
-        "enabled": True,
+        "enabled": False,
+        "optional": True,
         "families": [
             "pointcache",
             "model",
             "vrayproxy.alembic"
+        ]
+    },
+    "ExtractFbx": {
+        "enabled": True,
+        "active": True,
+        "families": [
+            "model",
+            "vrayproxy.fbx",
+            "fbx"
         ]
     },
     "ExtractObj": {

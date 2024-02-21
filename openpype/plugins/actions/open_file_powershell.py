@@ -14,11 +14,11 @@ from openpype.pipeline import (
 from openpype.pipeline.template_data import get_template_data
 
 
-class OpenTaskPath(LauncherAction):
-    name = "open_task_path"
-    label = "Explore here"
+class OpenTaskPathPowershell(LauncherAction):
+    name = "open_task_path_powershell"
+    label = "Explore here-pwsh"
     icon = "folder-open"
-    order = 500
+    order = 520
 
     def is_compatible(self, session):
         """Return whether the action is compatible with the session"""
@@ -97,7 +97,7 @@ class OpenTaskPath(LauncherAction):
     def open_in_explorer(path):
         platform_name = platform.system().lower()
         if platform_name == "windows":
-            args = ["explorer", path ]
+            args = ["start", path, "pwsh", "-WorkingDirectory", path]
         elif platform_name == "darwin":
             args = ["open", "-na", path]
         elif platform_name == "linux":
